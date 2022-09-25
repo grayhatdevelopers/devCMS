@@ -13,6 +13,32 @@
     <!--Replace with your tailwind.css once created-->
     <link href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css" rel="stylesheet" />
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+        function postToGoogle() {
+          var field1 = $("#Email").val();
+    
+          $.ajax({
+            url: "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfhU7P2edaIXkU_ZXoYQ2Yooa0R5kvOFVUsSchotov6pVvA3w/formResponse",
+              
+            //add your google form generated numbers below which are also the 'names' of your inputs     
+            data: {
+              "entry.1748406858": field1,
+            },
+            type: "POST",
+            dataType: "xml",
+            success: function (d) {
+              $('#contact').trigger('reset');
+            },
+            error: function (x, y, z) {
+              $('#contact').trigger('reset');
+            }
+          });
+          return false;
+        }
+      </script>    
+
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
       /* @import url('http://fonts.cdnfonts.com/css/alliance-no1?styles=28463,28464'); */
@@ -75,26 +101,33 @@
             A plug-and-play, Git-based CMS which makes it easy to edit files in a project.
           </p>
 
-          <form class="code bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
+          <form class="code bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4"
+            id="contact" onsubmit="return postToGoogle();"
+          >
             <div class="mb-4">
-              <label class="block text-blue-300 py-2 font-bold mb-2" for="emailaddress">
+              <label class="block text-blue-300 py-2 font-bold mb-2" for="Email">
                 // Interested in devCMS?
               </label>
-              <input
+              <fieldset>
+                <!-- [[835645722,"Email",null,0,[[1748406858,null,1]],null,null,null,null,null,null,[null,"Email"]],[1277763370,"Name",null,0,[[175525245,null,0]],null,null,null,null,null,null,[null,"Name"]],[1176276354,"GitHub username (if any)",null,0,[[1195683022,null,0]],null,null,null,null,null,null,[null,"GitHub username (if any)"]]],null,null,[null,null,null,null,null,[null,[["1G-JzhUM8O5Rha9l-OVY2habjK2iBzVxzaxI_wvM1l5XBwQI",0,[1280,320,0]],[[40,93,57,null,2],[122,205,149,null,1],[62,146,90,null,2],[88,77,110,null,2],[181,174,183,null,1],[136,97,142,null,2]]],null,[88,77,110,null,2],[205,202,212,null,1]]],null,null,null, -->
+                <input
                 class="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                id="emailaddress"
-                type="text"
+                name="entry.1748406858"
+                id="Email"
+                type="email"
                 placeholder="you@somewhere.com"
-              />
+                required/>
+              </fieldset>
             </div>
 
             <div class="flex items-center justify-between pt-4">
-              <button
+              <input
+                type="submit"
                 class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                 type="button"
               >
                 // Sign up for newsletter
-              </button>
+              </input>
             </div>
           </form>
         </div>
